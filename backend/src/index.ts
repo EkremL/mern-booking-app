@@ -3,7 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import { log } from "console";
 import mongoose from "mongoose";
-import userRoutes from "./routes/users";
+import userRoutes from "./routes/auth";
 
 async function connectToDatabase() {
   try {
