@@ -3,6 +3,7 @@ import cors from "cors";
 import "dotenv/config";
 import { log } from "console";
 import mongoose from "mongoose";
+import userRoutes from "./routes/users";
 
 async function connectToDatabase() {
   try {
@@ -20,9 +21,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/api/test", async (req: Request, res: Response) => {
-  res.json({ message: "testing api endpoint, hello!" });
-});
+app.use("/api/users", userRoutes);
+// app.get("/api/test", async (req: Request, res: Response) => {
+//   res.json({ message: "testing api endpoint, hello!" });
+// });
 
 app.listen(port, () => {
   log(`listening on port ${port}`);
