@@ -37,7 +37,7 @@ export const Register: RequestHandler = async (req: Request, res: Response) => {
       secure: process.env.NODE_ENV === "production",
       maxAge: 86400000, //? YUKARDAKİ 1 GÜNÜN KARŞILIĞINI MİLİSANİYE CİNSİNDE YAZDIK
     });
-    return res.sendStatus(200);
+    return res.status(200).send({ message: "User registered successfully" });
   } catch (error) {
     log(error);
     res.status(500).send({ message: "Something went wrong" });
