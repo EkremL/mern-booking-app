@@ -82,3 +82,14 @@ export const Login: RequestHandler = async (req: Request, res: Response) => {
     res.status(500).send({ message: "Something went wrong" });
   }
 };
+
+export const Logout: RequestHandler = async (req: Request, res: Response) => {
+  res.cookie("auth_token", "", {
+    expires: new Date(0),
+  });
+  res.send();
+};
+
+export const ValidateToken: RequestHandler = (req: Request, res: Response) => {
+  res.status(200).send({ userId: req.userId });
+};

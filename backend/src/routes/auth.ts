@@ -1,6 +1,7 @@
 import express from "express";
 import { check } from "express-validator";
 import * as UserController from "../controllers/users";
+import verifyToken from "../middlewares/auth";
 
 const router = express.Router();
 
@@ -30,5 +31,11 @@ router.post(
   ],
   UserController.Login
 );
+
+//!Validate Token
+router.get("/validate-token", verifyToken, UserController.ValidateToken);
+
+//!LOGOUT
+router.post("/logout", UserController.Logout);
 
 export default router;
