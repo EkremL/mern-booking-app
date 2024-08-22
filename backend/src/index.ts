@@ -5,6 +5,7 @@ import { log } from "console";
 import mongoose from "mongoose";
 import userRoutes from "./routes/auth";
 import cookieParser from "cookie-parser";
+import path from "path";
 
 async function connectToDatabase() {
   try {
@@ -33,6 +34,12 @@ app.use(
     credentials: true,
   })
 );
+
+//! tsconfig dosyası oluşturduk (npx tsc --init) daha sonra  "outDir": "./dist" yi aktif ettik ve package json da frontend ve backend icin çeşitli scriptler ekleyip buildlerini aldık
+//!aşağıdaki işlem, backend serveri üzerinde frontendin çalışmasını sağlar böylece 2 terminalde ayrı ayrı çalıştırmak yerine tek terminalde 2 si de çalıştırılmış olur!
+//!go to the frontend dist folder  and statik dosyaların servis edilmesi
+//?Nasıl çalışır? Örneğin index.html, style.css, ve main.js gibi dosyalar frontend/dist dizininde bulunuyorsa, bu dosyalar /index.html, /style.css, /main.js gibi yollarla istemciye servis edilir.
+app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/users", userRoutes);
 // app.get("/api/test", async (req: Request, res: Response) => {

@@ -29,7 +29,7 @@ const Register = () => {
   //!react-query
   const mutation = useMutation(apiClient.register, {
     onSuccess: async () => {
-      showToast({ message: "Registration successfully!", status: "SUCCESS" });
+      showToast({ message: "Registration Success!", status: "SUCCESS" });
       await queryClient.invalidateQueries("validateToken");
       navigate("/");
     },

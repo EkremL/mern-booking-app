@@ -1,7 +1,8 @@
 import { SignInFormData } from "./pages/Login";
 import { RegisterFormData } from "./pages/Register";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
+//! frontend ve backendi bağlayan statik yönlendirmeden sonra bu linki kullanmadan da 2 tarafı aynı yerde çalıstırdık bu yüzden yanına || "" ekledik
 
 //!REGISTER FETCH
 export const register = async (formData: RegisterFormData) => {
