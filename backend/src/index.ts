@@ -8,8 +8,14 @@ import cookieParser from "cookie-parser";
 
 async function connectToDatabase() {
   try {
-    await mongoose.connect(process.env.MONGO_CONNECTION_STRING as string);
-    console.log("Successfully connected to MongoDB");
+    //!ek olarak then ekledik ve e2e databasesine bağlanmasını sağladık, npm run e2e komutu sayesinde bu databaseye bağlandık ama konsolda yazdırmak risk olduğu icin iptal ettik
+    await mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
+    // .then(() => {
+    //   console.log(
+    //     "Successfully connected to MongoDB",
+    //     process.env.MONGODB_CONNECTION_STRING
+    //   );
+    // });
   } catch (error) {
     console.error("Error connecting to MongoDB:", error);
   }
