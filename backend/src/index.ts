@@ -58,6 +58,11 @@ app.use("/api/my-hotels", myHotelsRoutes);
 //   res.json({ message: "testing api endpoint, hello!" });
 // });
 
+//!catch route  SPA'ların client-side routing (tarafı) ile düzgün çalışmasını sağlar.
+app.get("*", (req: Request, res: Response) => {
+  res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+});
+
 app.listen(port, () => {
   log(`listening on port ${port}`);
   connectToDatabase();
