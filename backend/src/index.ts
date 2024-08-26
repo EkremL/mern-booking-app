@@ -7,6 +7,7 @@ import userRoutes from "./routes/auth";
 import myHotelsRoutes from "./routes/my-hotels";
 import cookieParser from "cookie-parser";
 import path from "path";
+import morgan from "morgan";
 //!CLOUDINARY IMPORT
 import { v2 as cloudinary } from "cloudinary";
 
@@ -34,6 +35,7 @@ async function connectToDatabase() {
 const port = 5000;
 
 const app = express();
+app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
