@@ -29,4 +29,8 @@ router.post(
   myhotelsController.CreateHotel
 );
 
+//!view (GET) my hotels
+
+router.get("/", verifyToken, myhotelsController.GetMyHotels);
+
 export default router;

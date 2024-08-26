@@ -1,7 +1,8 @@
 import { Request, RequestHandler, Response } from "express";
 import multer from "multer";
 import cloudinary from "cloudinary";
-import Hotel, { HotelType } from "../models/hotel";
+import Hotel from "../models/hotel";
+import { HotelType } from "../shared/types";
 
 const storage = multer.memoryStorage();
 export const upload = multer({
@@ -11,6 +12,7 @@ export const upload = multer({
   },
 }); //!routede kullanmak için oraya export ile gönderdik
 
+//!CREATE HOTEL CONTROLLER
 export const CreateHotel: RequestHandler = async (
   req: Request,
   res: Response
@@ -42,5 +44,19 @@ export const CreateHotel: RequestHandler = async (
   } catch (error) {
     console.log("Error creating hotel", error);
     res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+//! WIEW (GET) MY HOTEL CONTROLLER
+export const GetMyHotels: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const hotels = await Hotel.find({ userId: req.userId });
+    res.status(200).json(hotels);
+  } catch (error) {
+    console.log("Error getting hotels", error);
+    res.status(500).json({ message: "Error fetching hotels!" });
   }
 };
