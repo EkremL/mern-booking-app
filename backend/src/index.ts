@@ -5,6 +5,7 @@ import { log } from "console";
 import mongoose from "mongoose";
 import userRoutes from "./routes/auth";
 import myHotelsRoutes from "./routes/my-hotels";
+import hotelRoutes from "./routes/hotels";
 import cookieParser from "cookie-parser";
 import path from "path";
 import morgan from "morgan";
@@ -54,6 +55,7 @@ app.use(express.static(path.join(__dirname, "../../frontend/dist")));
 
 app.use("/api/users", userRoutes);
 app.use("/api/my-hotels", myHotelsRoutes);
+app.use("/api/hotels", hotelRoutes);
 // app.get("/api/test", async (req: Request, res: Response) => {
 //   res.json({ message: "testing api endpoint, hello!" });
 // });
