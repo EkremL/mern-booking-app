@@ -33,4 +33,15 @@ router.post(
 
 router.get("/", verifyToken, myhotelsController.GetMyHotels);
 
+//!FETCH HOTEL BY ID
+router.get("/:id", verifyToken, myhotelsController.EditMyHotel);
+
+//!UPDATE HOTEL
+router.put(
+  "/:hotelId",
+  verifyToken,
+  myhotelsController.upload.array("imageFiles"),
+  myhotelsController.UpdateMyHotel
+);
+
 export default router;
