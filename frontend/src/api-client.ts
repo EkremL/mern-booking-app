@@ -1,6 +1,6 @@
 import { SignInFormData } from "./pages/Login";
 import { RegisterFormData } from "./pages/Register";
-import { HotelType } from "../../backend/src/shared/types";
+import { HotelSearchResponse, HotelType } from "../../backend/src/shared/types";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 //! frontend ve backendi bağlayan statik yönlendirmeden sonra bu linki kullanmadan da 2 tarafı aynı yerde çalıstırdık bu yüzden yanına || "" ekledik
@@ -112,6 +112,55 @@ export const updateMyHotelById = async (hotelFormData: FormData) => {
   );
   if (!response.ok) {
     throw new Error("Error editing hotels!");
+  }
+  return response.json();
+};
+
+//!SEARCH
+
+export type SearchParams = {
+  destination?: string;
+  checkIn?: string;
+  checkOut?: string;
+  adultCount?: string;
+  childCount?: string;
+  //?countlari string verdik çünkü query paramlar string olmalı!
+  page?: string;
+  facilities?: string[];
+  types?: string[];
+  stars?: string[];
+  maxPrice?: string;
+  sortOption?: string;
+};
+
+export const searchHotels = async (
+  searchParams: SearchParams
+): Promise<HotelSearchResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("destination", searchParams.destination || "");
+  queryParams.append("checkIn", searchParams.checkIn || "");
+  queryParams.append("checkOut", searchParams.checkOut || "");
+  queryParams.append("adultCount", searchParams.adultCount || "");
+  queryParams.append("childCount", searchParams.childCount || "");
+  queryParams.append("page", searchParams.page || "");
+
+  queryParams.append("maxPrice", searchParams.maxPrice || "");
+  queryParams.append("sortOption", searchParams.sortOption || "");
+
+  searchParams.facilities?.forEach((facility) =>
+    queryParams.append("facilities", facility)
+  );
+
+  searchParams.types?.forEach((type) => queryParams.append("types", type));
+
+  searchParams.stars?.forEach((star) => queryParams.append("stars", star));
+
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/search?${queryParams}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Error searching hotels!");
   }
   return response.json();
 };
