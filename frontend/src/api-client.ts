@@ -1,6 +1,12 @@
 import { SignInFormData } from "./pages/Login";
 import { RegisterFormData } from "./pages/Register";
-import { HotelSearchResponse, HotelType } from "../../backend/src/shared/types";
+import {
+  HotelSearchResponse,
+  HotelType,
+  PaymentIntentResponse,
+  UserType,
+} from "../../backend/src/shared/types";
+import { BookingFormData } from "./forms/BookingForm/BookingForm";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "";
 //! frontend ve backendi bağlayan statik yönlendirmeden sonra bu linki kullanmadan da 2 tarafı aynı yerde çalıstırdık bu yüzden yanına || "" ekledik
@@ -172,4 +178,59 @@ export const FetchHotelById = async (hotelId: string): Promise<HotelType> => {
     throw new Error("Error fetching hotel!");
   }
   return response.json();
+};
+
+//! FETCH Current Logged In User
+
+export const FetchCurrentUser = async (): Promise<UserType> => {
+  const response = await fetch(`${API_BASE_URL}/api/users/me`, {
+    credentials: "include",
+  });
+  if (!response.ok) {
+    throw new Error("Error fetching user!");
+  }
+  return response.json();
+};
+
+//!Create PaymentIntent Fetch
+export const CreatePaymentIntent = async (
+  hotelId: string,
+  numberOfNights: string
+): Promise<PaymentIntentResponse> => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/${hotelId}/bookings/payment-intent`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ numberOfNights }),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to create payment intent!");
+  }
+
+  return response.json();
+};
+
+//!Create Room Booking
+export const CreateRoomBooking = async (formData: BookingFormData) => {
+  const response = await fetch(
+    `${API_BASE_URL}/api/hotels/${formData.hotelId}/bookings`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to book room!");
+  }
 };

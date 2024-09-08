@@ -93,3 +93,19 @@ export const Logout: RequestHandler = async (req: Request, res: Response) => {
 export const ValidateToken: RequestHandler = (req: Request, res: Response) => {
   res.status(200).send({ userId: req.userId });
 };
+
+//!Fetch Logged In User
+export const GetCurrent: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const userId = req.userId;
+  try {
+    const user = await User.findById(userId).select("-password"); //kullaniciyi şifreyi getirmeden fetch eder
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error fetching user!" });
+  }
+};

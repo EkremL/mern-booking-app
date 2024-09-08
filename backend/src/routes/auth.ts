@@ -38,4 +38,7 @@ router.get("/validate-token", verifyToken, UserController.ValidateToken);
 //!LOGOUT
 router.post("/logout", UserController.Logout);
 
+//!Get Current Logged In User
+router.get("/me", verifyToken, UserController.GetCurrent);
+
 export default router;
