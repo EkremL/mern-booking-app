@@ -61,6 +61,19 @@ const constructSearchQuery = (queryParams: any) => {
   return constructedQuery;
 };
 
+export const GetAllHotels: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const hotels = await Hotel.find().sort("-lastUpdated");
+    res.json(hotels);
+  } catch (error) {
+    console.log("error", error);
+    res.status(500).json({ message: "Error fetching all hotels!" });
+  }
+};
+
 export const SearchHotel: RequestHandler = async (
   req: Request,
   res: Response

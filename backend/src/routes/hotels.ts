@@ -8,6 +8,8 @@ const router = express.Router();
 
 router.get("/search", hotelsController.SearchHotel);
 
+router.get("/", hotelsController.GetAllHotels);
+
 router.get(
   "/:id",
   [param("id").notEmpty().withMessage("Hotel ID is required")],
