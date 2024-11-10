@@ -9,7 +9,7 @@ const Header = () => {
     <div className="bg-indigo-500 py-6 ">
       <div className=" mx-32 flex justify-between">
         <span className="text-3xl text-white font-bold tracking-tight">
-          <Link to={"/"}>Fantastic Holidays</Link>
+          <Link to={"/"}>My Holidays</Link>
         </span>
         <span className="flex space-x-2 items-center text-white">
           {isLoggedIn ? (
