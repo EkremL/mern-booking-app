@@ -37,6 +37,11 @@ The platform is fully **tested end-to-end with Playwright**, ensuring both front
 
 ### End-to-End Testing
 - Playwright
+
+## 📸 Screenshots
+![Homepage](./Screenshots/bh1.png)
+![MyHotels](./Screenshots/bh2.png)
+![AddHotel](./Screenshots/bh3.png)
  
 ## 🛠️ Setup Instructions
 
